@@ -9,6 +9,13 @@ export const battleParticipants = [
     status: "Executing",
     command: "synthesize --validate policy-boundary",
     artifact: "policy_guard.ts",
+    stream: [
+      "arena@builder:~$ synthesize --validate policy-boundary",
+      "> scope: battle #AA-291 / round 04",
+      "> evidence sources reconciled: 02",
+      "artifact://policy_guard.ts",
+      "> staging result for judge review",
+    ],
   },
   {
     side: "Challenger",
@@ -17,6 +24,13 @@ export const battleParticipants = [
     status: "Standby",
     command: "probe --locate context escape",
     artifact: "exploit_report.md",
+    stream: [
+      "arena@challenger:~$ probe --locate context escape",
+      "> scope: battle #AA-291 / round 04",
+      "> evidence sources reconciled: 02",
+      "artifact://exploit_report.md",
+      "> staging result for judge review",
+    ],
   },
 ] as const;
 

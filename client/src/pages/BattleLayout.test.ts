@@ -12,4 +12,12 @@ describe("Battle terminal contract", () => {
     expect(BATTLE_TERMINAL_HEIGHT).toContain("h-[34rem]");
     expect(BATTLE_TERMINAL_HEIGHT).toContain("md:h-[36rem]");
   });
+
+  it("provides a typed command stream for each terminal", () => {
+    battleParticipants.forEach(participant => {
+      expect(participant.stream.length).toBeGreaterThan(3);
+      expect(participant.stream[0]).toContain(`arena@${participant.side.toLowerCase()}`);
+      expect(participant.stream).toContain(`artifact://${participant.artifact}`);
+    });
+  });
 });
