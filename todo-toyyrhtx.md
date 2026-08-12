@@ -7,4 +7,5 @@
 - [x] Redesign the Battle page using the tactical-console direction with exactly two fixed-height, responsive terminal components.
 - [x] Add or update focused Vitest coverage for the two-terminal Battle-page contract.
 - [x] Run typecheck, tests, and responsive visual verification for the Battle route.
-- [ ] Save a verified checkpoint and deliver the implementation plus artifact preview.
+- [x] Save a verified checkpoint and deliver the implementation plus artifact preview.
+- [x] Send the saved checkpoint attachment and a direct comparison-artifact access path to the user.
