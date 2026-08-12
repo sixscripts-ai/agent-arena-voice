@@ -48,4 +48,8 @@
 - [ ] Replace the temporary Voice MySQL persistence scaffold with Appwrite-backed bridge writes after protected Arena backend approval.
 - [ ] Remove MySQL/Drizzle persistence from the Voice production tool path and retain Appwrite-backed bridge operations as the sole canonical storage contract.
 - [x] Remove MySQL/Drizzle persistence from the Voice production tool path and retain Appwrite-backed bridge operations as the sole canonical storage contract.
+- [x] Add unit coverage proving Voice action audits and note assets use the Appwrite bridge instead of local MySQL or storage writes.
 - [x] Document the exact Agent Builder action configuration and the future Arena server-to-server bridge contract.
+- [x] Review the feature-branch conversation and verify the correct production frontend-to-Modal endpoint configuration.
+- [x] Review the current Agent Arena UI and feature-branch preview, then present selectable visual direction previews before finalizing UI work.
+- [x] Add a local UI direction selector page that presents the three previews and records a client-side selection for review.
