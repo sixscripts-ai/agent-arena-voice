@@ -24,7 +24,7 @@ async function toBase64(file: File) {
   let binary = "";
   const chunkSize = 0x8000;
   for (let start = 0; start < bytes.length; start += chunkSize) {
-    binary += String.fromCharCode(...bytes.subarray(start, start + chunkSize));
+    binary += String.fromCharCode.apply(null, Array.from(bytes.subarray(start, start + chunkSize)));
   }
   return btoa(binary);
 }

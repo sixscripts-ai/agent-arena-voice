@@ -10,5 +10,40 @@
 - [ ] Retry creation of the separate private GitHub repository and publish the initialized project state.
 - [ ] Attach the local Agent Arena Voice project to `sixscripts-ai/agent-arena-voice` and synchronize the initialized codebase.
 - [ ] Verify public Git transport to `sixscripts-ai/agent-arena-voice` and complete the initial source synchronization.
-- [ ] Configure the supplied LiveKit project credentials as server-only secrets and verify they never reach the browser bundle.
+- [ ] Retry the initial push of the prepared Agent Arena Voice source to the public GitHub repository.
+- [x] Record the active local Mac development environment at `http://localhost:3000/`.
+- [ ] Configure local OAuth, analytics, and server-only LiveKit environment values without committing `.env` files.
+- [ ] Run the local file-storage migration and LiveKit server credential smoke check from the Mac workspace.
+- [x] Run the LiveKit server credential smoke check from the Mac workspace without creating a room.
+- [x] Review the user’s updated Manus personalization details and apply relevant workflow constraints.
+- [x] Preserve `/Users/villain/modal` as a protected path; do not modify or overwrite it without explicit permission.
+- [x] Prepare a local Mac clone guide, including recommended project location and required development prerequisites.
+- [x] Configure the supplied LiveKit project credentials as server-only secrets and verify they never reach the browser bundle.
 - [x] Add conservative LiveKit session guardrails: explicit user-start, short-lived room tokens, no recordings, no idle worker session, and read-only tool scope.
+- [ ] Provide and validate the exact Mac commands for local OAuth, database, storage, LiveKit, test, and type-check setup.
+- [x] Assess the best Parallel Search integration option for Agent Arena Voice and Manus usage.
+- [x] Design a high-quality Wireflow workflow for an Agent Arena product-use example without triggering paid generation until confirmed.
+- [x] Review the LiveKit function/tool-design conversation and reconcile it with the Agent Arena Voice security model.
+- [x] Inspect Agent Arena's explicit LiveKit dispatch and Appwrite/FastAPI battle-authority paths in read-only mode.
+- [x] Produce the Builder-first LiveKit HTTP-action design with a compatible future code-managed/MCP path.
+- [x] Implement the Voice server-side LiveKit session and Builder-action foundations in `/Users/villain/Developer/agent-arena-voice`.
+- [ ] Implement and validate the Voice frontend LiveKit client, explicit Start Voice control, and room/session UX in `/Users/villain/Developer/agent-arena-voice`.
+- [x] Preserve the protected Agent Arena backend as a future read-only integration boundary until separately authorized.
+- [x] Implement Voice-side v1 tool contracts for current context, historical battle by ID, battle creation, cancellation, save/unsave, voice notes, and report generation.
+- [ ] Validate current-context, history, creation, cancellation, and save tools against the authenticated live Arena bridge.
+- [x] Implement typed confirmation-token and structured-audit foundations for every mutating voice action.
+- [ ] Apply the database migration and verify confirmation audit rows are created, consumed, and finalized.
+- [x] Implement managed-storage and metadata foundations for voice notes and generated reports.
+- [ ] Verify end-to-end voice-note and report storage writes against managed storage and the applied metadata schema.
+- [x] Expose Builder-compatible HTTP actions without placing Appwrite or LiveKit secrets in browser code.
+- [ ] Apply the generated additive Voice tool migration to the configured local database.
+- [ ] Configure the seven Builder actions in LiveKit and verify their HTTP endpoints against a live Arena bridge.
+- [ ] Implement the authenticated Arena bridge routes in `/Users/villain/modal` only after separate explicit approval.
+- [ ] Define the Appwrite-first canonical data model for Voice sessions, action audits, voice notes, and reports.
+- [ ] Create a testable Voice-session handoff mockup in the separate Voice application.
+- [ ] Document the secure handoff sequence and Appwrite migration boundary without modifying `/Users/villain/modal`.
+- [x] Define the Appwrite-first canonical data model for Voice sessions, action audits, voice notes, and reports.
+- [x] Create a testable Voice-session handoff mockup in the separate Voice application.
+- [x] Document the secure handoff sequence and Appwrite migration boundary without modifying `/Users/villain/modal`.
+- [ ] Replace the temporary Voice MySQL persistence scaffold with Appwrite-backed bridge writes after protected Arena backend approval.
+- [x] Document the exact Agent Builder action configuration and the future Arena server-to-server bridge contract.
