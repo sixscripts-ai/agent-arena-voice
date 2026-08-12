@@ -9,6 +9,10 @@ The Voice application calls these routes only from its server. The Arena backend
 | Create battle | `POST /voice/battles` | Verify user identity and validate `format_id`, models, timeout, visibility, and save preference. |
 | Cancel current battle | `POST /voice/battles/{battle_id}/cancel` | Verify user ownership and active/cancellable status. |
 | Save state | `PUT /voice/battles/{battle_id}/saved` | Verify user ownership and update only save state. |
+| Prepare mutation audit | `POST /voice/actions` | Create a pending Appwrite `voice_actions` document. |
+| Claim confirmation | `POST /voice/actions/{action_id}/claim` | Atomically transition only the matching pending action to `executing`. |
+| Finalize mutation audit | `POST /voice/actions/{action_id}/finalize` | Record executed/failed status and capped evidence. |
+| Store note/report | `POST /voice/assets` | Write file bytes to Appwrite Storage and `voice_assets` metadata only after ownership check. |
 
 The Voice application sends `X-Arena-Voice-User`, `X-Arena-Voice-Battle`, and `X-Arena-Voice-Room` for trace correlation. The Arena backend must compare the authenticated bridge session/user with those headers and discard mismatches. It must not accept a browser-provided identifier or an Appwrite client token forwarded from the Voice agent.
 

@@ -1,8 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { and, eq } from "drizzle-orm";
-import { voiceBattleAssets, voiceToolActions } from "../drizzle/schema";
-import { getDb } from "./db";
-import { storagePut } from "./storage";
+import { arenaBridge } from "./arenaBridge";
 import {
   ConfirmationClaims,
   VoiceSessionClaims,
@@ -18,21 +15,15 @@ export async function prepareVoiceAction(input: {
   payload: unknown;
   summary: string;
 }) {
-  const db = await getDb();
-  if (!db) throw new Error("database_unavailable");
   const actionId = randomUUID();
   const payloadHash = stablePayloadHash(input.payload);
   const expiresAt = new Date(Date.now() + 2 * 60 * 1000);
-  await db.insert(voiceToolActions).values({
-    id: actionId,
-    arenaUserId: input.claims.sub,
-    battleId: input.claims.battle_id,
-    roomName: input.claims.room_name,
-    toolName: input.tool,
-    status: "pending",
-    payloadHash,
+  await arenaBridge.createVoiceAction(input.claims, {
+    action_id: actionId,
+    tool_name: input.tool,
+    payload_hash: payloadHash,
     summary: input.summary.slice(0, 500),
-    expiresAt,
+    expires_at: expiresAt.toISOString(),
   });
   return {
     confirmationRequired: true,
@@ -56,42 +47,23 @@ export async function consumeVoiceAction(input: {
   const confirmation = verifyConfirmationToken(input.confirmationToken);
   const payloadHash = stablePayloadHash(input.payload);
   assertConfirmationMatches(confirmation, input.claims, input.tool, payloadHash);
-  const db = await getDb();
-  if (!db) throw new Error("database_unavailable");
-  const rows = await db
-    .select()
-    .from(voiceToolActions)
-    .where(
-      and(
-        eq(voiceToolActions.id, confirmation.action_id),
-        eq(voiceToolActions.arenaUserId, input.claims.sub),
-        eq(voiceToolActions.status, "pending"),
-      ),
-    )
-    .limit(1);
-  const action = rows[0];
-  if (!action) throw new Error("confirmation_already_used");
-  if (action.expiresAt.getTime() <= Date.now()) throw new Error("expired_confirmation");
-  if (action.payloadHash !== payloadHash || action.toolName !== input.tool) throw new Error("confirmation_mismatch");
-  const [claimed] = await db
-    .update(voiceToolActions)
-    .set({ status: "executing" })
-    .where(and(eq(voiceToolActions.id, action.id), eq(voiceToolActions.status, "pending")));
-  if (!claimed || claimed.affectedRows !== 1) throw new Error("confirmation_already_used");
-  return action;
+  await arenaBridge.claimVoiceAction(input.claims, confirmation.action_id, {
+    tool_name: input.tool,
+    payload_hash: payloadHash,
+  });
+  return { id: confirmation.action_id };
 }
 
-export async function finalizeVoiceAction(actionId: string, status: "executed" | "failed", evidence: unknown) {
-  const db = await getDb();
-  if (!db) throw new Error("database_unavailable");
-  await db
-    .update(voiceToolActions)
-    .set({
-      status,
-      executedAt: new Date(),
-      evidenceJson: JSON.stringify(evidence).slice(0, 4000),
-    })
-    .where(and(eq(voiceToolActions.id, actionId), eq(voiceToolActions.status, "executing")));
+export async function finalizeVoiceAction(
+  claims: VoiceSessionClaims,
+  actionId: string,
+  status: "executed" | "failed",
+  evidence: unknown,
+) {
+  await arenaBridge.finalizeVoiceAction(claims, actionId, {
+    status,
+    evidence_json: JSON.stringify(evidence).slice(0, 4000),
+  });
 }
 
 function assertConfirmationMatches(
@@ -118,25 +90,11 @@ export async function storeBattleTextAsset(input: {
 }) {
   const bytes = Buffer.from(input.text, "utf8");
   if (!bytes.length || bytes.length > 64 * 1024) throw new Error("asset_size_invalid");
-  const safeOwner = stablePayloadHash(input.claims.sub).slice(0, 20);
-  const fileName = `${Date.now()}-${randomUUID()}.${input.mimeType === "text/markdown" ? "md" : "txt"}`;
-  const { key, url } = await storagePut(
-    `battle-assets/${safeOwner}/${input.claims.battle_id}/${fileName}`,
-    bytes,
-    input.mimeType,
-  );
-  const db = await getDb();
-  if (!db) throw new Error("database_unavailable");
-  await db.insert(voiceBattleAssets).values({
-    arenaUserId: input.claims.sub,
-    battleId: input.claims.battle_id,
-    roomName: input.claims.room_name,
+  return arenaBridge.createVoiceAsset(input.claims, {
     kind: input.kind,
     title: input.title.slice(0, 180),
-    storageKey: key,
-    storageUrl: url,
-    mimeType: input.mimeType,
-    sizeBytes: bytes.length,
+    text: input.text,
+    mime_type: input.mimeType,
+    size_bytes: bytes.length,
   });
-  return { kind: input.kind, title: input.title, storageUrl: url, sizeBytes: bytes.length };
 }

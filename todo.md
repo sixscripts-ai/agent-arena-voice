@@ -46,4 +46,6 @@
 - [x] Create a testable Voice-session handoff mockup in the separate Voice application.
 - [x] Document the secure handoff sequence and Appwrite migration boundary without modifying `/Users/villain/modal`.
 - [ ] Replace the temporary Voice MySQL persistence scaffold with Appwrite-backed bridge writes after protected Arena backend approval.
+- [ ] Remove MySQL/Drizzle persistence from the Voice production tool path and retain Appwrite-backed bridge operations as the sole canonical storage contract.
+- [x] Remove MySQL/Drizzle persistence from the Voice production tool path and retain Appwrite-backed bridge operations as the sole canonical storage contract.
 - [x] Document the exact Agent Builder action configuration and the future Arena server-to-server bridge contract.

@@ -124,10 +124,10 @@ async function mutationTool(
     });
     actionId = action.id;
     const data = await execute(claims);
-    await finalizeVoiceAction(action.id, "executed", data);
+    await finalizeVoiceAction(claims, action.id, "executed", data);
     send(res, 200, { ok: true, data, evidence: { tool, status: "executed", actionId: action.id } });
   } catch (error) {
-    if (actionId) await finalizeVoiceAction(actionId, "failed", { code: error instanceof Error ? error.message : "tool_failed" }).catch(() => undefined);
+    if (actionId) await finalizeVoiceAction(claimsFor(req, tool), actionId, "failed", { code: error instanceof Error ? error.message : "tool_failed" }).catch(() => undefined);
     const safe = safeError(tool, error);
     send(res, safe.status, safe.result);
   }

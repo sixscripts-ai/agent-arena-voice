@@ -44,7 +44,7 @@ Use a dedicated **Appwrite Storage bucket** such as `voice-assets` for note and 
 
 ## What Changes in the Voice Repository
 
-The current Drizzle/MySQL models in this repository are a **development scaffold only**. Do not apply them to a production database if the Appwrite-first design is adopted. Once the Arena bridge is authorized, replace local persistence calls with bridge routes that write `voice_sessions`, `voice_actions`, and `voice_assets` through the protected Arena backend.
+The current Drizzle/MySQL models in this repository are a **development scaffold only**. Do not apply them to a production database if the Appwrite-first design is adopted. The Voice tool path now delegates action preparation, action claims, action finalization, and note/report assets to the Arena bridge so the protected backend can write `voice_sessions`, `voice_actions`, and `voice_assets` through Appwrite.
 
 The voice app retains no long-lived battle copies. It may cache a sanitized current-battle projection in memory for 20 seconds during a connected session only.
 

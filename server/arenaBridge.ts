@@ -83,4 +83,12 @@ export const arenaBridge = {
       body: { saved },
       signal,
     }),
+  createVoiceAction: (claims: VoiceSessionClaims, body: unknown, signal?: AbortSignal) =>
+    requestArena("/voice/actions", claims, { method: "POST", body, signal }),
+  claimVoiceAction: (claims: VoiceSessionClaims, actionId: string, body: unknown, signal?: AbortSignal) =>
+    requestArena(`/voice/actions/${encodeURIComponent(actionId)}/claim`, claims, { method: "POST", body, signal }),
+  finalizeVoiceAction: (claims: VoiceSessionClaims, actionId: string, body: unknown, signal?: AbortSignal) =>
+    requestArena(`/voice/actions/${encodeURIComponent(actionId)}/finalize`, claims, { method: "POST", body, signal }),
+  createVoiceAsset: (claims: VoiceSessionClaims, body: unknown, signal?: AbortSignal) =>
+    requestArena("/voice/assets", claims, { method: "POST", body, signal }),
 };
