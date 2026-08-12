@@ -1,10 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check, ChevronRight, CircleDotDashed, Grid3X3, RadioTower } from "lucide-react";
-import { Link } from "wouter";
 import { useState } from "react";
-import { toast } from "sonner";
+import { Link } from "wouter";
 
-type DirectionId = "arena-frequency" | "precision-grid" | "match-broadcast";
+type DirectionId = "tactical-console" | "arena-broadcast" | "precision-workbench";
 
 type Direction = {
   id: DirectionId;
@@ -12,112 +10,35 @@ type Direction = {
   strapline: string;
   purpose: string;
   palette: string[];
-  bestFor: string;
-  preview: string;
   icon: typeof RadioTower;
 };
 
 const directions: Direction[] = [
-  {
-    id: "arena-frequency",
-    name: "Arena Frequency",
-    strapline: "Evidence console with controlled signal.",
-    purpose: "Graphite surfaces, cyan runtime signals, and fixed evidence readers make dense battle state feel focused rather than noisy.",
-    palette: ["#0B0C0E", "#1FD5F9", "#F2F4F7"],
-    bestFor: "A technical, dark-mode primary experience with LiveKit Voice as a natural extension.",
-    preview: "/manus-storage/agent-arena-preview-arena-frequency_41b2d4a3.png",
-    icon: RadioTower,
-  },
-  {
-    id: "precision-grid",
-    name: "Precision Grid",
-    strapline: "Research-grade clarity, editorial restraint.",
-    purpose: "Warm light surfaces, modular evidence grids, and blue decision points prioritize formats, comparisons, and judge provenance.",
-    palette: ["#F7F6F2", "#002CF2", "#161616"],
-    bestFor: "A credible research product where readable artifacts and static comparison matter more than runtime drama.",
-    preview: "/manus-storage/agent-arena-preview-precision-grid_bbddac1c.png",
-    icon: Grid3X3,
-  },
-  {
-    id: "match-broadcast",
-    name: "Match Broadcast",
-    strapline: "Live rivalry, grounded evidence.",
-    purpose: "A cinematic phase rail, match clock, and judge desk bring competitive momentum to the active battle without using synthetic activity.",
-    palette: ["#090B12", "#E94B2E", "#D8B56A"],
-    bestFor: "A compelling live-battle front door, especially for new users and shareable match views.",
-    preview: "/manus-storage/agent-arena-preview-match-broadcast_dd285202.png",
-    icon: CircleDotDashed,
-  },
+  { id: "tactical-console", name: "Tactical Console", strapline: "Evidence-first command surface.", purpose: "Graphite, cyan runtime signals, and two equal terminal windows for a focused technical Battle page.", palette: ["#0B0F12", "#44D7B6", "#F5A85A"], icon: RadioTower },
+  { id: "arena-broadcast", name: "Arena Broadcast", strapline: "Live rivalry with a stronger stage.", purpose: "Warm competitive accents and heightened side identity while retaining the same two-terminal constraint.", palette: ["#140D0F", "#FF704B", "#F4BB56"], icon: CircleDotDashed },
+  { id: "precision-workbench", name: "Precision Workbench", strapline: "Quiet developer-tool clarity.", purpose: "A cool, restrained review environment for comparing competing artifacts without ornamental noise.", palette: ["#10151E", "#78A6FF", "#C9D3E6"], icon: Grid3X3 },
 ];
 
-function DirectionFallback({ direction }: { direction: Direction }) {
-  const isLight = direction.id === "precision-grid";
-  return (
-    <div className={`relative h-full overflow-hidden p-4 ${isLight ? "bg-[#f7f6f2] text-[#151515]" : "bg-[#0b0c0e] text-[#f4f6f8]"}`}>
-      <div className="absolute inset-0 opacity-20" style={{ backgroundImage: isLight ? "linear-gradient(#192135 1px,transparent 1px),linear-gradient(90deg,#192135 1px,transparent 1px)" : "linear-gradient(#1fd5f9 1px,transparent 1px),linear-gradient(90deg,#1fd5f9 1px,transparent 1px)", backgroundSize: "28px 28px" }} />
-      <div className="relative flex h-full flex-col">
-        <div className="flex items-center justify-between text-[8px] font-semibold uppercase tracking-[0.18em] opacity-70"><span>Agent Arena</span><span>Live / active</span></div>
-        <div className="mt-4 grid flex-1 grid-cols-[0.55fr_1fr] gap-3">
-          <div className="rounded border border-current/20 p-3">
-            <p className="text-[8px] uppercase tracking-[0.16em] opacity-60">Battle Runtime</p>
-            <div className="mt-4 space-y-2">
-              {["Acquire context", "Generate artifact", "Evaluate evidence", "Judge decision"].map((phase, index) => <div key={phase} className="flex items-center gap-2 text-[9px]"><span className="grid h-4 w-4 place-items-center rounded-full border border-current/30 text-[7px]">0{index + 1}</span><span>{phase}</span></div>)}
-            </div>
-          </div>
-          <div className="rounded border border-current/25 bg-black/10 p-3">
-            <div className="flex justify-between text-[8px] uppercase tracking-[0.16em] opacity-70"><span>Builder</span><span>Challenger</span></div>
-            <div className="mt-5 grid grid-cols-2 gap-2"><div className="h-16 rounded border border-current/20" /><div className="h-16 rounded border border-current/20" /></div>
-            <div className="mt-3 h-12 rounded border border-current/20 p-2 text-[8px] opacity-75">Evidence inspector · artifact v3</div>
-          </div>
-        </div>
-        <div className="mt-3 flex items-center justify-between rounded border border-current/20 px-3 py-2 text-[8px] uppercase tracking-[0.14em]"><span>Judge signal</span><span style={{ color: direction.palette[1] }}>Round 04</span></div>
-      </div>
-    </div>
-  );
+function TerminalStub({ side, accent }: { side: string; accent: string }) {
+  return <div className="flex h-[11rem] min-w-0 flex-col overflow-hidden border border-current/25 bg-black/20 text-left"><div className="flex h-7 items-center justify-between border-b border-current/20 px-2 font-mono text-[7px] uppercase tracking-[.15em] opacity-70"><span>{side.toLowerCase()}.session</span><span style={{ color: accent }}>live</span></div><div className="flex flex-1 flex-col p-3"><p className="font-mono text-[8px] uppercase tracking-[.13em] opacity-60">{side}</p><p className="mt-1 font-serif text-lg font-semibold leading-none">{side === "Builder" ? "Harbor-7" : "Archer-2"}</p><div className="mt-5 space-y-1.5 font-mono text-[8px] leading-none opacity-70"><p style={{ color: accent }}>$ run --validate</p><p>&gt; scope locked</p><p>&gt; evidence staged</p></div><p className="mt-auto font-mono text-[8px]" style={{ color: accent }}>▍</p></div></div>;
+}
+
+function DirectionPreview({ direction }: { direction: Direction }) {
+  const isBroadcast = direction.id === "arena-broadcast";
+  const isWorkbench = direction.id === "precision-workbench";
+  const foreground = isWorkbench ? "#dfe8ef" : "#f3f7f8";
+  const background = isBroadcast ? "#140d0f" : isWorkbench ? "#10151e" : "#0b0f12";
+  return <div className="overflow-hidden border border-white/15" style={{ background, color: foreground }}><div className="flex items-center justify-between border-b border-white/10 px-4 py-3 font-mono text-[8px] uppercase tracking-[.15em] opacity-70"><span>Agent Arena</span><span>Battle #AA-291</span><span>Round 04</span></div><div className="flex items-end justify-between gap-4 border-b border-white/10 px-4 py-4"><div><p className="font-mono text-[8px] uppercase tracking-[.12em] opacity-60">Prompt-injection defense</p><h3 className="mt-1 font-serif text-2xl font-semibold tracking-tight">Evidence duel</h3></div><span className="font-mono text-[10px]" style={{ color: direction.palette[1] }}>01:42</span></div><div className="grid grid-cols-2 gap-3 p-4"><TerminalStub side="Builder" accent={direction.palette[1]} /><TerminalStub side="Challenger" accent={direction.palette[2]} /></div><div className="flex justify-between border-t border-white/10 px-4 py-3 font-mono text-[8px] uppercase tracking-[.13em] opacity-60"><span>two bounded sessions</span><span>judge pending</span></div></div>;
 }
 
 export default function UiDirections() {
-  const [selected, setSelected] = useState<DirectionId | null>(() => (typeof window === "undefined" ? null : (window.localStorage.getItem("agent-arena-ui-direction") as DirectionId | null)));
-  const [failedImages, setFailedImages] = useState<Set<DirectionId>>(new Set());
+  const [selected, setSelected] = useState<DirectionId>(() => (typeof window === "undefined" ? "tactical-console" : (window.localStorage.getItem("agent-arena-battle-direction") as DirectionId) || "tactical-console"));
+  const selectedDirection = directions.find(direction => direction.id === selected) ?? directions[0];
 
   function selectDirection(id: DirectionId) {
     setSelected(id);
-    window.localStorage.setItem("agent-arena-ui-direction", id);
-    toast.success(`${directions.find(direction => direction.id === id)?.name} saved as your local UI preference.`);
+    window.localStorage.setItem("agent-arena-battle-direction", id);
   }
 
-  return (
-    <main className="min-h-screen bg-[#0a0b0d] px-5 py-8 text-[#edf0f2] md:px-10 md:py-12">
-      <div className="mx-auto max-w-7xl">
-        <Link href="/" className="inline-flex items-center gap-2 text-xs font-medium text-[#98a2b3] transition-colors hover:text-white"><ArrowLeft className="h-4 w-4" /> Back to Voice library</Link>
-        <div className="mt-12 max-w-3xl">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#1fd5f9]">Agent Arena / Design decision</p>
-          <h1 className="mt-4 font-serif text-4xl leading-[0.95] tracking-tight md:text-6xl">Choose the visual language for observable agent competition.</h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-[#aeb8c3]">Each direction keeps the same product mechanics: bounded evidence, explicit phases, real runtime status, and judge provenance. Choose a primary system; hybridizing after selection is easy.</p>
-        </div>
-
-        <section className="mt-12 grid gap-6 lg:grid-cols-3">
-          {directions.map(direction => {
-            const Icon = direction.icon;
-            const chosen = selected === direction.id;
-            return (
-              <article key={direction.id} className={`overflow-hidden border transition-all ${chosen ? "border-[#1fd5f9] bg-[#13161a] shadow-[0_0_0_1px_rgba(31,213,249,.25)]" : "border-white/15 bg-[#121417] hover:border-white/35"}`}>
-                <div className="aspect-[16/10] overflow-hidden">
-                  {failedImages.has(direction.id) ? <DirectionFallback direction={direction} /> : <img src={direction.preview} alt={`${direction.name} conceptual screen preview`} className="h-full w-full object-cover" onError={() => setFailedImages(current => new Set(current).add(direction.id))} />}
-                </div>
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-4"><div><div className="flex items-center gap-2 text-[#1fd5f9]"><Icon className="h-4 w-4" /><span className="font-mono text-[10px] uppercase tracking-[0.18em]">Direction</span></div><h2 className="mt-3 font-serif text-3xl tracking-tight">{direction.name}</h2></div>{chosen ? <span className="grid h-7 w-7 place-items-center rounded-full bg-[#1fd5f9] text-[#071014]"><Check className="h-4 w-4" /></span> : null}</div>
-                  <p className="mt-3 text-sm font-medium text-[#dbe4ec]">{direction.strapline}</p>
-                  <p className="mt-3 text-sm leading-6 text-[#9da8b5]">{direction.purpose}</p>
-                  <div className="mt-5 flex gap-2">{direction.palette.map(color => <span key={color} title={color} className="h-5 w-5 rounded-full border border-white/20" style={{ background: color }} />)}</div>
-                  <p className="mt-5 border-t border-white/10 pt-4 text-xs leading-5 text-[#7f8a96]"><strong className="font-medium text-[#bcc6d1]">Best for:</strong> {direction.bestFor}</p>
-                  <Button onClick={() => selectDirection(direction.id)} variant={chosen ? "secondary" : "outline"} className="mt-6 w-full rounded-none border-white/20 bg-transparent text-white hover:bg-white hover:text-black">{chosen ? "Selected locally" : "Choose this direction"}<ChevronRight className="ml-2 h-4 w-4" /></Button>
-                </div>
-              </article>
-            );
-          })}
-        </section>
-      </div>
-    </main>
-  );
+  return <main className="min-h-screen bg-[#0c1115] px-5 py-8 text-[#ecf3f5] md:px-10 md:py-12"><div className="mx-auto max-w-7xl"><Link href="/" className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[.15em] text-[#99aab5] transition-colors hover:text-white"><ArrowLeft className="h-3.5 w-3.5" /> Back to Voice library</Link><header className="mt-10 grid gap-6 border-b border-white/10 pb-8 md:grid-cols-[1fr_.45fr] md:items-end"><div><p className="font-mono text-[11px] uppercase tracking-[.2em] text-[#44d7b6]">Agent Arena / Battle direction</p><h1 className="mt-4 max-w-3xl font-serif text-4xl leading-[.94] tracking-tight md:text-6xl">Two terminal windows. One clean decision.</h1></div><p className="text-sm leading-6 text-[#a5b5bf]">Each preview is constrained to exactly two fixed-height terminal components. At narrow widths, the pair stacks instead of shrinking into unusable panes.</p></header><section className="mt-8 grid gap-5 lg:grid-cols-3">{directions.map(direction => { const Icon = direction.icon; const chosen = selected === direction.id; return <article key={direction.id} className={`overflow-hidden border ${chosen ? "border-[#44d7b6] bg-[#121a1d]" : "border-white/15 bg-[#10161a]"}`}><DirectionPreview direction={direction} /><div className="p-5"><div className="flex items-start justify-between gap-3"><div><div className="flex items-center gap-2 text-[#44d7b6]"><Icon className="h-4 w-4" /><span className="font-mono text-[10px] uppercase tracking-[.14em]">Direction</span></div><h2 className="mt-3 font-serif text-3xl tracking-tight">{direction.name}</h2></div>{chosen ? <span className="grid h-7 w-7 place-items-center rounded-full bg-[#44d7b6] text-[#071014]"><Check className="h-4 w-4" /></span> : null}</div><p className="mt-3 text-sm font-medium text-[#dbe7ea]">{direction.strapline}</p><p className="mt-2 text-sm leading-6 text-[#99aab4]">{direction.purpose}</p><div className="mt-5 flex gap-2">{direction.palette.map(color => <span key={color} className="h-4 w-4 rounded-full border border-white/20" style={{ backgroundColor: color }} />)}</div><button type="button" onClick={() => selectDirection(direction.id)} className={`mt-6 flex w-full items-center justify-center gap-2 border px-4 py-3 text-sm font-medium transition-colors ${chosen ? "border-[#44d7b6] bg-[#44d7b6] text-[#071014]" : "border-white/20 text-white hover:border-white/50 hover:bg-white hover:text-black"}`}>{chosen ? "Selected for Battle page" : "Choose this direction"}<ChevronRight className="h-4 w-4" /></button></div></article>; })}</section><section className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6"><div><p className="font-mono text-[10px] uppercase tracking-[.14em]" style={{ color: selectedDirection.palette[1] }}>Selected direction</p><p className="mt-1 font-serif text-2xl">{selectedDirection.name}</p></div><Link href="/battle" className="inline-flex items-center gap-2 bg-[#44d7b6] px-5 py-3 text-sm font-semibold text-[#071014] transition-colors hover:bg-[#75e8d0]">Open Battle page <ChevronRight className="h-4 w-4" /></Link></section></div></main>;
 }

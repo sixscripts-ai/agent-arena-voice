@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import Battle from "./pages/Battle";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import UiDirections from "./pages/UiDirections";
@@ -13,6 +14,7 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/battle"} component={Battle} />
       <Route path={"/handoff-demo"} component={VoiceHandoffMockup} />
       <Route path={"/ui-directions"} component={UiDirections} />
       <Route path={"/404"} component={NotFound} />
