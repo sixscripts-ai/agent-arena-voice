@@ -9,3 +9,7 @@
 - [x] Run typecheck, tests, and responsive visual verification for the Battle route.
 - [x] Save a verified checkpoint and deliver the implementation plus artifact preview.
 - [x] Send the saved checkpoint attachment and a direct comparison-artifact access path to the user.
+- [x] Install the freshtechbro Claude Design Skills bundle into the project-local .claude/plugins directory.
+- [x] Confirm the Battle page keeps its two terminal windows side by side on desktop and stacks only on narrow mobile widths.
+- [x] Deliver the complete 22-skill summary with short descriptions and repository reference.
+
