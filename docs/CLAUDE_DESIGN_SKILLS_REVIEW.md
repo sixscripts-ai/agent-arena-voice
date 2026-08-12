@@ -24,3 +24,11 @@ The repository bundles scripts, templates, agents, and slash commands in additio
 ## Initial Recommendation
 
 For the Execution Workbench, keep the current imported Frontend Design/Web Artifacts Builder stack and review **only `modern-web-design`** next. Defer motion and all 3D/scroll plugins. The prototype needs better information architecture and evidence behavior first, not animation or spatial effects.
+
+## Actual Skill and Script Review
+
+The checked-in `modern-web-design` skill includes useful accessibility, performance, reduced-motion, keyboard-focus, semantic HTML, image-loading, and bundle-splitting guidance. Its `design_audit.py` script is a local static HTML reader: it uses only Python standard-library modules, reads a supplied HTML file, and prints a report or writes a report only to an explicitly supplied output path. It makes no network calls, subprocess calls, or automatic project modifications.
+
+The skill is not a good primary authority for the Execution Workbench visual system because large portions emphasize immersive heroes, scrollytelling, custom cursors, glassmorphism, 3D viewers, and animated data displays. Those patterns conflict with the workbench decision: content-dense, evidence-first, keyboard-friendly, and free from decorative terminal or motion effects.
+
+Use the skill as a **review checklist only**, drawing from its accessibility and performance sections. Do not run its scripts without intentionally selecting an input/output file, and do not follow its hero, scroll, glass, or 3D patterns in the Arena workbench.

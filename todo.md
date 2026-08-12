@@ -61,4 +61,11 @@
 - [x] Define and build an interactive Execution Workbench prototype in the separate Voice workspace.
 - [x] Validate the prototype’s run controls, artifact workspace, execution trace, judge evidence, and Voice dock before review.
 - [x] Rename the Execution Workbench Artifact Workspace label to Read & Write Fixture and verify the preview.
+- [x] Synchronize the shared project to the latest version and restart the preview services.
+- [ ] Restore and verify a reachable preview after the synchronized restart reported no preview URL.
 - [x] Review freshtechbro/claudedesignskills for safe, non-overlapping web-app and web-design skills before enabling any of its contents.
+- [x] Inspect and safely enable the requested animation-components, authoring-motion, and meta-skills claudedesignskills bundles without replacing existing skills.
+- [ ] Create Modern Web Design, Motion Framer, Rive Interactive, and Animated Component Libraries as distinct Manus skill packages without replacing existing skills.
+- [ ] Configure the four added skills for specific Execution Workbench responsibilities, constraints, and review gates.
+- [x] Create and validate Modern Web Design, Motion Framer, Rive Interactive, and Animated Component Libraries as distinct Manus skill packages without replacing existing skills.
+- [x] Configure the four added skills for specific Execution Workbench responsibilities, constraints, and review gates.
