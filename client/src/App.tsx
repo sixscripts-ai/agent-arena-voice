@@ -5,6 +5,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Battle from "./pages/Battle";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import ExecutionWorkbench from "./pages/ExecutionWorkbench";
 import Home from "./pages/Home";
 import UiDirections from "./pages/UiDirections";
 import VoiceHandoffMockup from "./pages/VoiceHandoffMockup";
@@ -17,6 +18,7 @@ function Router() {
       <Route path={"/battle"} component={Battle} />
       <Route path={"/handoff-demo"} component={VoiceHandoffMockup} />
       <Route path={"/ui-directions"} component={UiDirections} />
+      <Route path={"/workbench"} component={ExecutionWorkbench} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

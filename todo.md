@@ -53,3 +53,10 @@
 - [x] Review the feature-branch conversation and verify the correct production frontend-to-Modal endpoint configuration.
 - [x] Review the current Agent Arena UI and feature-branch preview, then present selectable visual direction previews before finalizing UI work.
 - [x] Add a local UI direction selector page that presents the three previews and records a client-side selection for review.
+- [x] Find verified skills for terminal, code-execution, and developer-tool web app design, then propose a revised Agent Arena UI direction.
+- [ ] Import the verified Frontend Design and Web Artifacts Builder skills.
+- [x] Import the verified Web Artifacts Builder skill.
+- [ ] Import the verified Anthropic Frontend Design source under the distinct skill name Anthropic Design without replacing the existing Frontend Design skill.
+- [x] Create and validate the distinct Anthropic Design skill package without replacing the existing Frontend Design skill.
+- [x] Define and build an interactive Execution Workbench prototype in the separate Voice workspace.
+- [x] Validate the prototype’s run controls, artifact workspace, execution trace, judge evidence, and Voice dock before review.
