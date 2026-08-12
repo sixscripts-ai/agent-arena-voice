@@ -60,3 +60,5 @@
 - [x] Create and validate the distinct Anthropic Design skill package without replacing the existing Frontend Design skill.
 - [x] Define and build an interactive Execution Workbench prototype in the separate Voice workspace.
 - [x] Validate the prototype’s run controls, artifact workspace, execution trace, judge evidence, and Voice dock before review.
+- [x] Rename the Execution Workbench Artifact Workspace label to Read & Write Fixture and verify the preview.
+- [x] Review freshtechbro/claudedesignskills for safe, non-overlapping web-app and web-design skills before enabling any of its contents.
